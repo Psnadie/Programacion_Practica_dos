@@ -4,7 +4,7 @@ public class Alumno {
     private String nombre;
     private String apellidos;
     private int año;
-    private String curso;
+    private Curso curso;
     private String pago;
     
     public Alumno(){
@@ -12,15 +12,15 @@ public class Alumno {
         nombre = "";
         apellidos = "";
         año = 0;
-        curso  = "";
+        curso  = new Curso();
         pago = "";
     }
-    public Alumno(String d, String nom, String ape, int a, String c, String p){
+    public Alumno(String d, String nom, String ape, int a, String p){
         dni = d;
         nombre = nom;
         apellidos = ape;
         año = a;
-        curso  = c;
+        curso  = new Curso();
         pago = p;
     }
 
@@ -56,11 +56,11 @@ public class Alumno {
         this.año = año;
     }
 
-    public String getCurso() {
+    public Curso getCurso() {
         return curso;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
     

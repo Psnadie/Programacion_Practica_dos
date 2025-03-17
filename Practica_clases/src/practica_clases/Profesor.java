@@ -12,13 +12,15 @@ public class Profesor {
         horas_trabajo= 0;
     }
     
-    public Profesor(String d, String nom, int sh, int ht){
+    public Profesor(String d, String nom, int sh){
         dni = d;
         nombre = nom;
         sueldo_hora = sh;
-        horas_trabajo= ht;
+        horas_trabajo = 0;
     }
 
+    
+    
     public String getDni() {
         return dni;
     }

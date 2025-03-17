@@ -14,10 +14,10 @@ public class Asignaturas {
     
     Asignaturas(int num, int cod, String nom){
         this.numero_horas = num;
-        this.profesor = new Profesor();
         this.codigo = cod;
         this.nombre = nom;
     }
+    @Override
     public String toString(){
         String str = "";
         str += this.nombre + " " + this.numero_horas + " " + this.codigo;

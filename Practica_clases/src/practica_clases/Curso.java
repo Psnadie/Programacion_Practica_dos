@@ -9,15 +9,13 @@ public class Curso {
     
     public Curso(){
         nombre = "";
-        prof = new Profesor();
         asig = new Asignaturas[5];
         alumnos = new Alumno[30];
         año = 0;
         aula = "N/A";
     }
-    public Curso(String nom, Profesor p, Asignaturas[] a, Alumno[] alu, int añ, String aul){
+    public Curso(String nom, Asignaturas[] a, Alumno[] alu, int añ, String aul){
         nombre = nom;
-        prof = p;
         asig = a;
         alumnos = alu;
         año = añ;
