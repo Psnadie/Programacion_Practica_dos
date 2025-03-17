@@ -1,20 +1,20 @@
 package practica_clases;
 public class Asignaturas {
     private int numero_horas;
-    private String profesor;
+    private Profesor profesor;
     private int codigo;
     private String nombre;
     
     Asignaturas(){
         this.numero_horas = 0;
-        this.profesor = "";
+        this.profesor = new Profesor();
         this.codigo = 0;
         this.nombre = "";
     }
     
     Asignaturas(int num, int cod, String nom){
         this.numero_horas = num;
-        this.profesor = "";
+        this.profesor = new Profesor();
         this.codigo = cod;
         this.nombre = nom;
     }
@@ -31,11 +31,11 @@ public class Asignaturas {
         this.numero_horas = numero_horas;
     }
 
-    public String getProfesor() {
+    public Profesor getProfesor() {
         return profesor;
     }
 
-    public void setProfesor(String profesor) {
+    public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
     }
 

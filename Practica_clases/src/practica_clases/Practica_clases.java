@@ -18,4 +18,9 @@ public class Practica_clases {
         System.out.println(asig.toString());
         return asig;
     }
+    public static Asignaturas[] CrearLoteAsignatura(){
+        Scanner sc = new Scanner(System.in);
+        Asignaturas[] asig  = new Asignaturas[10];
+        return asig;
+    }
 }

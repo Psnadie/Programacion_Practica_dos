@@ -1,0 +1,69 @@
+package practica_clases;
+public class Alumno {
+    private String dni;
+    private String nombre;
+    private String apellidos;
+    private int año;
+    private String curso;
+    private String pago;
+    
+    public Alumno(){
+        dni = "";
+        nombre = "";
+        apellidos = "";
+        año = 0;
+        curso  = "";
+        pago = "";
+    }
+    public Alumno(String d, String nom, String ape, int a, String c, String p){
+        dni = d;
+        nombre = nom;
+        apellidos = ape;
+        año = a;
+        curso  = c;
+        pago = p;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public int getAño() {
+        return año;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+    
+    
+    
+}
