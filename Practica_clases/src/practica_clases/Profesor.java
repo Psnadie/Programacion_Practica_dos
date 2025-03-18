@@ -19,7 +19,10 @@ public class Profesor {
         horas_trabajo = 0;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Profesor DNI=" + dni + ", Nombre=" + nombre + ", Sueldo por Hora=" + sueldo_hora + ", Horas de Trabajo=" + horas_trabajo;
+    }
     
     public String getDni() {
         return dni;

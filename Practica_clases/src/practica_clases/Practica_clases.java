@@ -8,31 +8,111 @@ public class Practica_clases {
         Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese el número de aulas en la escuela: ");
         int numAulas = sc.nextInt();
+        Profesor[] profes = new Profesor[numAulas];
+        Asignaturas[] asig = new Asignaturas[numAulas*5];
+        Alumno[] alum = new Alumno[numAulas*30];
         boolean salir = false;
         while (!salir) {
             System.out.println("\n--- MENÚ ESCUELA ---");
             System.out.println("1. Agregar Alumno");
             System.out.println("2. Agregar Profesor");
             System.out.println("3. Agregar Curso");
-            System.out.println("4. Salir");
+            System.out.println("4. Agregar Asignatura");
+            System.out.println("5. Opciones de presupuesto");
+            System.out.println("6. Salir");
             System.out.print("Seleccione una opción: ");
             int opcion = sc.nextInt();
+            int opcion2;
             sc.nextLine(); // Consumir el salto de línea
             
             switch (opcion) {
                 case 1:
-                    Alumno alumno = CrearAlumno();
-                    escuela.agregarAlumno(alumno);
+                    System.out.println("\n--- MENÚ ALUMNOS ---");
+                    System.out.println("1. Agregar Alumno");
+                    System.out.println("2. Eliminar Alumno");
+                    System.out.println("3. Ver Alumnos");
+                    System.out.println("4. Salir");
+                    System.out.print("Seleccione una opción: ");
+                    opcion2 = sc.nextInt();
+                    switch (opcion2) {
+                        case 1:
+                            Rellenar(alum, CrearAlumno());
+                            break;
+                        case 2: 
+                            break;
+                        case 3:
+                            ImprimirAlumnos(alum);
+                            break;
+                        case 4: 
+                            break;  
+                    }
                     break;
                 case 2:
-                    Profesor profesor = CrearProfesor();
-                    escuela.agregarProfesor(profesor);
+                    System.out.println("\n--- MENÚ PROFESOR ---");
+                    System.out.println("1. Agregar Profesor");
+                    System.out.println("2. Delegar Profesor");
+                    System.out.println("3. Eliminar Profesor");
+                    System.out.println("4. Salir");
+                    System.out.print("Seleccione una opción: ");
+                    opcion2 = sc.nextInt();
+                    switch (opcion2) {
+                        case 1:
+                            break;
+                        case 2: 
+                            break;
+                        case 3:
+                            break;
+                        case 4: 
+                            break;  
+                    }
                     break;
                 case 3:
-                    Curso curso = CrearCurso();
-                    escuela.agregarCurso(curso);
+                    System.out.println("\n--- MENÚ CURSO ---");
+                    System.out.println("1. Crear Curso");
+                    System.out.println("2. Añadir Alumno al Curso");
+                    System.out.println("3. Agregar Curso");
+                    System.out.println("4. Salir");
+                    System.out.print("Seleccione una opción: ");
+                    opcion2 = sc.nextInt();
+                    switch (opcion2) {
+                        case 1:
+                            break;
+                        case 2: 
+                            break;
+                        case 3:
+                            break;
+                        case 4: 
+                            break;  
+                    }
                     break;
                 case 4:
+                    System.out.println("\n--- MENÚ ASIGNATURAS ---");
+                    System.out.println("1. Crear Asignatura");
+                    System.out.println("2. Eliminar Asignatura");
+                    System.out.println("3. Salir");
+                    System.out.print("Seleccione una opción: ");
+                    salir = true;
+                    break;
+                case 5:
+                    System.out.println("\n--- MENÚ PRESUPUESTO ---");
+                    System.out.println("1. Crear Curso");
+                    System.out.println("2. Añadir Alumno al Curso");
+                    System.out.println("3. Agregar Curso");
+                    System.out.println("4. Salir");
+                    System.out.print("Seleccione una opción: ");
+                    opcion2 = sc.nextInt();
+                    switch (opcion2) {
+                        case 1:
+                            break;
+                        case 2: 
+                            break;
+                        case 3:
+                            break;
+                        case 4: 
+                            break;  
+                    }
+                    break;
+                case 6:
                     salir = true;
                     break;
                 default:
@@ -93,13 +173,13 @@ public class Practica_clases {
         System.out.println("Ingrese el año de su alumno: ");
         año = sc.nextInt();
         do {
-            System.out.print("Ingrese el tipo de pago de su alumno 1/Completo 2/Plazos");
+            System.out.println("Ingrese el tipo de pago de su alumno 1/Completo 2/Plazos");
             System.out.println("Para seleccionar ingrese (1) o (2)");
             int trig = sc.nextInt();
             if (trig == 1) {
                 pago = "Completo";
             }
-            if (trig == 2) {
+            else if (trig == 2) {
                 pago = "Plazos";
             }
             else{
@@ -110,4 +190,32 @@ public class Practica_clases {
         Alumno alumno = new Alumno(dni, nombre, apellidos, año, pago);
         return alumno;
     }
+    
+    //Metodo para encontrar espacios en los arrays
+    
+    public static void Rellenar(Alumno[] alumnos, Alumno al){
+        for (int i = 0; i < alumnos.length; i++) {
+            if (alumnos[i] == null) {
+                alumnos[i] = al;
+                break;
+            }
+        }
+    }
+    
+    //Metodos para imprimir los arrays de objetos
+
+    public static void ImprimirAlumnos(Alumno[] alumnos) {
+    System.out.println("\n--- LISTA DE ALUMNOS ---");
+    boolean hayAlumnos = false;  // Variable para verificar si hay alumnos en la lista
+    for (int i = 0; i < alumnos.length; i++) {
+        if (alumnos[i] != null) {  // Si el alumno en esa posición no es null
+            System.out.println(alumnos[i].toString());  // Imprime la información del alumno
+            hayAlumnos = true;
+        }
+    }
+    
+    if (!hayAlumnos) {
+        System.out.println("No hay alumnos registrados.");
+    }
+}
 }

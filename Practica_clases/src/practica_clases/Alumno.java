@@ -23,7 +23,11 @@ public class Alumno {
         curso  = new Curso();
         pago = p;
     }
-
+    @Override
+    public String toString() {
+        return "Alumno [DNI=" + dni + ", Nombre=" + nombre + ", Apellidos=" + apellidos 
+                + ", Año=" + año + ", Tipo de Pago=" + pago + "]";
+    }
     public String getDni() {
         return dni;
     }
