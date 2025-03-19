@@ -1,25 +1,26 @@
 package practica_clases;
 public class Curso {
     private String nombre;
-    private Profesor prof;
     private Asignaturas[] asig;
     private Alumno[] alumnos;
     private int año;
-    private String aula;
+    private int aula;
+    private int matricula;
     
     public Curso(){
         nombre = "";
         asig = new Asignaturas[5];
         alumnos = new Alumno[30];
         año = 0;
-        aula = "N/A";
+        aula = 1000;
     }
-    public Curso(String nom, Asignaturas[] a, Alumno[] alu, int añ, String aul){
+    public Curso(String nom, Asignaturas[] a, Alumno[] alu, int añ, int aul, int m){
         nombre = nom;
         asig = a;
         alumnos = alu;
         año = añ;
         aula = aul;
+        matricula = m;
     }
 
     public String getNombre() {
@@ -29,15 +30,7 @@ public class Curso {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public Profesor getProf() {
-        return prof;
-    }
-
-    public void setProf(Profesor prof) {
-        this.prof = prof;
-    }
-
+    
     public Asignaturas[] getAsig() {
         return asig;
     }
@@ -63,11 +56,11 @@ public class Curso {
         this.año = año;
     }
 
-    public String getAula() {
+    public int getAula() {
         return aula;
     }
 
-    public void setAula(String aula) {
+    public void setAula(int aula) {
         this.aula = aula;
     }
     

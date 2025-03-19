@@ -25,8 +25,24 @@ public class Alumno {
     }
     @Override
     public String toString() {
-        return "Alumno [DNI=" + dni + ", Nombre=" + nombre + ", Apellidos=" + apellidos 
-                + ", Año=" + año + ", Tipo de Pago=" + pago + "]";
+        return "Alumno DNI=" + dni + ", Nombre=" + nombre + ", Apellidos=" + apellidos 
+                + ", Año=" + año + ", Tipo de Pago=" + pago;
+    }
+    public boolean Coincide(String d){
+        if (d.equals( this.dni)) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean equals(Alumno a){
+        if (this.dni.equals(a.dni)) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     public String getDni() {
         return dni;

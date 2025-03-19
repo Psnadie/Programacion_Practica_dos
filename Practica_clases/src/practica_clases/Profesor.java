@@ -24,6 +24,15 @@ public class Profesor {
         return "Profesor DNI=" + dni + ", Nombre=" + nombre + ", Sueldo por Hora=" + sueldo_hora + ", Horas de Trabajo=" + horas_trabajo;
     }
     
+    public boolean Coincide(String d){
+        if (d.equals( this.dni)) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public String getDni() {
         return dni;
     }

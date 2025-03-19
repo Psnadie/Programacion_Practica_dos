@@ -16,13 +16,24 @@ public class Asignaturas {
         this.numero_horas = num;
         this.codigo = cod;
         this.nombre = nom;
+        this.profesor = null;
     }
     @Override
     public String toString(){
         String str = "";
-        str += this.nombre + " " + this.numero_horas + " " + this.codigo;
+        str += "Nombre: " + this.nombre + " " + "Numero de horas: " + this.numero_horas + " " + "Codigo: " + this.codigo;
         return str;
     }
+    
+    public boolean Coincide(int d){
+        if (d == this.codigo) {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public int getNumero_horas() {
         return numero_horas;
     }
