@@ -9,7 +9,10 @@ public class Practica_clases {
         System.out.print("Ingrese el número de aulas en la escuela: ");
         int numAulas = sc.nextInt();
         sc.nextLine();
-        String[] aulas = new String[numAulas];
+        Boolean[] aulas = new Boolean[numAulas];
+        for (int i = 0; i < aulas.length; i++) {
+            aulas[i] = false;
+        }
         Profesor[] profes = new Profesor[numAulas];
         Asignaturas[] asig = new Asignaturas[numAulas*5];
         Alumno[] alum = new Alumno[numAulas*30];
@@ -39,7 +42,10 @@ public class Practica_clases {
                     opcion2 = sc.nextInt();
                     switch (opcion2) {
                         case 1:
-                            Rellenar(alum, CrearAlumno());
+                            Alumno a = new Alumno();
+                            a.copiarDesde(CrearAlumno());
+                            Rellenar(alum,a );
+                            Matricular(a, cursos);
                             break;
                         case 2: 
                             sc.nextLine();
@@ -92,13 +98,12 @@ public class Practica_clases {
                     System.out.println("\n--- MENÚ CURSO ---");
                     System.out.println("1. Crear Curso");
                     System.out.println("2. Ver Curso");
-                    System.out.println("3. Agregar Curso");
-                    System.out.println("4. Salir");
+                    System.out.println("3. Salir");
                     System.out.print("Seleccione una opción: ");
                     opcion2 = sc.nextInt();
                     switch (opcion2) {
                         case 1:
-                            Curso c = CrearCurso(asig, alum, 1);
+                            Curso c = CrearCurso(aulas, asig, alum, 1);
                             if (c == null) {
                                 System.out.println("creacion del curso abortada");
                             }
@@ -106,7 +111,7 @@ public class Practica_clases {
                                 Rellenar(cursos, c);
                                 System.out.println("creacion del curso exitosa");
                                 System.out.println("Creacion del segundo año: ");
-                                Curso c2 = CrearCurso(asig, alum, 2);;
+                                Curso c2 = CrearCurso(aulas, asig, alum, 2);;
                                 if (c == null) {
                                     System.out.println("creacion del curso abortada");
                                 }
@@ -117,11 +122,10 @@ public class Practica_clases {
                                 break;
                             }
                         case 2: 
+                            ImprimirCursos(cursos);
                             break;
                         case 3:
                             break;
-                        case 4: 
-                            break;  
                     }
                     break;
                 case 4:
@@ -151,14 +155,22 @@ public class Practica_clases {
                     break;
                 case 5:
                     System.out.println("\n--- MENÚ PRESUPUESTO ---");
-                    System.out.println("1. Crear Curso");
-                    System.out.println("2. Añadir Alumno al Curso");
-                    System.out.println("3. Agregar Curso");
-                    System.out.println("4. Salir");
+                    System.out.println("1. Ver Ganancias de los cursos");
+                    System.out.println("2. Salir");
                     System.out.print("Seleccione una opción: ");
                     opcion2 = sc.nextInt();
                     switch (opcion2) {
                         case 1:
+                            System.out.println("Ingrese los meses ha hacer el presupuesto de ganancias: ");
+                            int m = sc.nextInt();
+                            sc.nextLine();
+                            if(Ganancias(cursos,m) == 0){
+                                System.out.println("No hay cursos para hacer un presupuesto acualmente");
+                            }
+                            else{
+                                System.out.println("Los beneficios brutos hasta el mes especificado son : "+ Ganancias(cursos,m));
+                                System.out.println("Las ganancias son: " + (Ganancias(cursos,m)-calcularGastos(cursos,m)));
+                            }
                             break;
                         case 2: 
                             break;
@@ -247,20 +259,41 @@ public class Practica_clases {
         return alumno;
     }
     
-public static Curso CrearCurso(Asignaturas[] asig, Alumno[] alumnos, int año) {
+public static Curso CrearCurso(Boolean[] aula, Asignaturas[] asig, Alumno[] alumnos, int año) {
     Scanner sc = new Scanner(System.in);
     int contAsig = 0;
     int contAlum = 0;
+    boolean seleccion = false;
+    
     System.out.println("Ingrese el nombre del curso: ");
     String nom = sc.nextLine();
+    
+    // Comprobación de aula válida
+    int sala;
+    do {
+        System.out.println("Ingrese el número de su sala (empezando desde el 0): ");
+        System.out.println("Ingrese -1 para salir del menu de creación de Curso");
+        sala = sc.nextInt();
+        if (sala == -1) {
+            return null;
+        }
+        if (sala < 0 || sala >= aula.length) {
+            System.out.println("Número de aula inválido. Intente nuevamente.");
+        } else if (aula[sala] == true) {
+            System.out.println("La sala ya está ocupada. Elija otra sala.");
+        } else {
+            aula[sala] = true;
+            System.out.println("Sala seleccionada correctamente.");
+            seleccion = true;
+        }
+    } while (!seleccion);
 
-    System.out.println("Ingrese el número de la sala: ");
-    int sala = sc.nextInt();
-    sc.nextLine();
-
-    System.out.println("Ingrese el costo de la matricula: ");
+    // Obtener matrícula
+    System.out.println("Ingrese el costo de la matrícula: ");
     int matricula = sc.nextInt();
-    sc.nextLine();
+    sc.nextLine(); // Limpiar el buffer del scanner
+    
+    // Comprobar asignaturas
     Asignaturas[] a = new Asignaturas[5];
     do {
         System.out.println("Ingrese el código de la asignatura (Ingrese -1 para salir):");
@@ -273,9 +306,8 @@ public static Curso CrearCurso(Asignaturas[] asig, Alumno[] alumnos, int año) {
         for (int j = 0; j < asig.length; j++) {
             if (asig[j] != null && asig[j].Coincide(cod)) {
                 if (asig[j].getProfesor() == null) {
-                    System.out.println("Esta asignatura no tiene un profesor asignado");
-                }
-                else{
+                    System.out.println("Esta asignatura no tiene un profesor asignado.");
+                } else {
                     a[contAsig] = asig[j];
                     contAsig++;
                     asignada = true;
@@ -287,12 +319,12 @@ public static Curso CrearCurso(Asignaturas[] asig, Alumno[] alumnos, int año) {
         if (!asignada) {
             System.out.println("Código de asignatura no válido. Intente nuevamente.");
         }
-    } while (contAsig < 5);
+    } while (contAsig < 5); // Se deben asignar al menos 5 asignaturas
 
-    // Creando array de alumnos para el curso
+    // Comprobar alumnos
     Alumno[] alu = new Alumno[30];
     do {
-        System.out.println("Ingrese el DNI del estudiante ('No' para no ingresar mas estudiantes):");
+        System.out.println("Ingrese el DNI del estudiante ('No' para no ingresar más estudiantes):");
         String dni = sc.nextLine();
         if (dni.equalsIgnoreCase("No")) {
             return null;
@@ -316,17 +348,95 @@ public static Curso CrearCurso(Asignaturas[] asig, Alumno[] alumnos, int año) {
             System.out.println("Se ha alcanzado el máximo de 30 alumnos. ¿Desea crear un nuevo curso? (Si/No)");
             String respuesta = sc.nextLine();
             if (respuesta.equalsIgnoreCase("Si")) {
-                return CrearCurso(asig, alumnos, año); // Crear un cruso extra
+                return CrearCurso(aula, asig, alumnos, año); // Crear un curso extra
             }
         }
-    } while (contAlum < 10);
+    } while (contAlum < 10); // Se deben ingresar al menos 10 alumnos
 
     // Crear y retornar el curso
     Curso curso = new Curso(nom, a, alu, año, sala, matricula);
     return curso;
 }
 
+
+//Metodo para recibir un alumno y un curso y agregarlos
+
+public static void Matricular(Alumno a, Curso[] c){
+    Scanner sc = new Scanner(System.in);
+    if (c[0] == null) {
+        System.out.println("No hay cursos para matricular al estudiante en este momento");
+        System.out.println("Se creara el estudiante y despues podra matricularlo manualmente");
+    }
+    else{
+        System.out.println("Ingrese el nombre curso al que desea matricular el estudiante");
+        String nom = sc.nextLine();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i].getNombre().equals(nom)) {
+                AgregarAlumno(a,c[i]);
+            }
+        }
+    }
+}
+
+
+//Metodo para sacar las ganancias brutas de la escuela
+
+public static void AgregarAlumno(Alumno a, Curso c){
+    for (int i = 0; i < c.getAlumnos().length; i++) {
+        if (c.getAlumnos()[i] == null) {
+            c.getAlumnos()[i] = a;
+            System.out.println("El alumno ha sido agregado correctamente");
+            break;
+        }
+    }
+}
+
+    public static int Ganancias(Curso[] curso, int num_meses) {
+        if (num_meses < 1 || num_meses > 9) {
+            System.out.println("Número de meses inválido. Debe estar entre 1 y 9.");
+            return 0;
+        }
+        int ganancias = 0;
+        for (int i = 0; i < curso.length; i++) {
+            if (curso[i] != null && curso[i].getAlumnos() != null) {
+                Alumno[] a = curso[i].getAlumnos();
+                int mensualidad = curso[i].getMatricula() / 9;
+                for (int j = 0; j < a.length; j++) {
+                    if (a[j] != null) {
+                        if ("Completo".equals(a[j].getPago())) {
+                            ganancias += curso[i].getMatricula();
+                        } else if ("Plazos".equals(a[j].getPago())) {
+                            ganancias += mensualidad * num_meses;
+                        }
+                    }
+                }
+            }
+        }
+        return ganancias;
+    }
     
+    //Metodo para sacar los gastos netos de la escuela
+    
+    public static int calcularGastos(Curso[] cursos, int num_meses) {
+        int gastos = 0;
+
+        for (int i = 0; i < cursos.length; i++) {
+            if (cursos[i] != null) {
+                for (int j = 0; j < cursos[i].getAsig().length; j++) {
+                    Asignaturas a = cursos[i].getAsig()[j];
+                    // Obtener el salario por hora y las horas de trabajo del profesor
+                    int salarioPorHora = a.getProfesor().getSueldo_hora();
+                    int horasTrabajo = a.getProfesor().getSueldo_hora();
+
+                    // Calculamos el gasto mensual para ese profesor
+                    double salarioMensual = salarioPorHora * horasTrabajo * 4; // 4 semanas por mes
+                    gastos += salarioMensual * num_meses; // Multiplicamos por los meses
+                }
+            }
+        }
+        return gastos;
+    }
+
     //Metodo para asignar un profesor a una asignatura 
     
     public static void Asignar(Asignaturas[] asig, Profesor[] profe, String dni, int cod){
@@ -468,5 +578,22 @@ public static Curso CrearCurso(Asignaturas[] asig, Alumno[] alumnos, int año) {
             System.out.println("No hay asignaturas registradas.");
         }
     }
+    
+    public static void ImprimirCursos(Curso[] cursos) {
+        if (cursos == null || cursos.length == 0) {
+            System.out.println("No hay cursos disponibles.");
+            return;
+        }
+        else{
+            System.out.println("Listado de Cursos:");
+            for (Curso curso : cursos) {
+                if (curso != null) {
+                    curso.imprimirCurso();
+                    System.out.println("-----------------------------");
+                }
+            }
+        }
+    }
+    
     
 }

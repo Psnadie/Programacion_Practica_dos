@@ -28,6 +28,18 @@ public class Alumno {
         return "Alumno DNI=" + dni + ", Nombre=" + nombre + ", Apellidos=" + apellidos 
                 + ", Año=" + año + ", Tipo de Pago=" + pago;
     }
+    
+    public void copiarDesde(Alumno otro) {
+        if (otro != null) {
+            this.dni = otro.dni;
+            this.nombre = otro.nombre;
+            this.apellidos = otro.apellidos;
+            this.año = otro.año;
+            this.pago = otro.pago;
+            this.curso = otro.curso;
+
+        }
+    }
     public boolean Coincide(String d){
         if (d.equals( this.dni)) {
             return true;
@@ -84,6 +96,12 @@ public class Alumno {
         this.curso = curso;
     }
     
+    public String getPago(){
+        return pago;
+    }
+    public void setPago(String pago){
+        this.pago = pago;
+    }
     
     
 }
